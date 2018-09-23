@@ -1,3 +1,3 @@
 # 10up Accordion
 
-Accessibly accordion component.
+Accessible accordion component.
