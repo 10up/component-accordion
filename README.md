@@ -76,7 +76,7 @@ Include the `accordion.js` file from the `dist/` directory and access the compon
 let myAccordion = new TenUp.accordion( '.accordion', {
 	onToggle: function() {
 		console.log( 'onToggle callback' );
-	},
+	}
 } );
 ```
 
