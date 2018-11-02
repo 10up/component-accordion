@@ -62,6 +62,15 @@ Create a new instance by supplying the selector to use for the accordion and an 
 import accordion from '@10up/component-accordion';
 
 accordion( '.accordion', {
+	onCreate: function() {
+		console.log( 'onCreate callback' );
+	},
+	onOpen: function() {
+		console.log( 'onOpen callback' );
+	},
+	onClose: function() {
+		console.log( 'onClose callback' );
+	},
 	onToggle: function() {
 		console.log( 'onToggle callback' );
 	}
@@ -74,6 +83,15 @@ Include the `accordion.js` file from the `dist/` directory and access the compon
 
 ```javascript
 let myAccordion = new TenUp.accordion( '.accordion', {
+	onCreate: function() {
+		console.log( 'onCreate callback' );
+	},
+	onOpen: function() {
+		console.log( 'onOpen callback' );
+	},
+	onClose: function() {
+		console.log( 'onClose callback' );
+	},
 	onToggle: function() {
 		console.log( 'onToggle callback' );
 	}
