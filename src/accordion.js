@@ -58,10 +58,10 @@ export default class Accordion {
 
 		// Set ARIA attributes for accordion links
 		accordionLinks.forEach( ( accordionLink, index ) => {
-			accordionLink.setAttribute( 'id', 'tab' + accordionAreaIndex + '-' + index );
+			accordionLink.setAttribute( 'id', `tab${accordionAreaIndex}-${index}` );
 			accordionLink.setAttribute( 'aria-selected', 'false' );
 			accordionLink.setAttribute( 'aria-expanded', 'false' );
-			accordionLink.setAttribute( 'aria-controls', 'panel' + accordionAreaIndex + '-' + index );
+			accordionLink.setAttribute( 'aria-controls', `panel${accordionAreaIndex}-${index}` );
 			accordionLink.setAttribute( 'role', 'tab' );
 
 			// Handle click event to toggle accordion items
@@ -73,9 +73,9 @@ export default class Accordion {
 
 		// Set ARIA attributes for accordion content areas
 		accordionContent.forEach( ( accordionContent, index ) => {
-			accordionContent.setAttribute( 'id', 'panel' + accordionAreaIndex + '-' + index );
+			accordionContent.setAttribute( 'id', `panel${accordionAreaIndex}-${index}` );
 			accordionContent.setAttribute( 'aria-hidden', 'true' );
-			accordionContent.setAttribute( 'aria-labelledby', 'tab' + accordionAreaIndex + '-' + index );
+			accordionContent.setAttribute( 'aria-labelledby', `tab${accordionAreaIndex}-${index}` );
 			accordionContent.setAttribute( 'role', 'tabpanel' );
 		} );
 	}
