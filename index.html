@@ -66,10 +66,19 @@
 
 		<script src="/dist/accordion.js"></script>
 		<script type="text/javascript">
-			TenUp.accordion( {
-				target: '.accordion', // ID (or class) of accordion container
-			}, function() {
-				console.log( 'Amazing callback function!' );
+			let myAccordion = new TenUp.accordion( '.accordion', {
+				onCreate: function() {
+					console.log( 'onCreated' )
+				},
+				onOpen: function() {
+					console.log( 'onOpen' )
+				},
+				onClose: function() {
+					console.log( 'onClose' )
+				},
+				onToggle: function() {
+					console.log( 'onToggle' )
+				}
 			} );
 		</script>
 	</body>

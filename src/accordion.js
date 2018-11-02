@@ -1,81 +1,132 @@
 'use strict';
 
-export default function Accordion ( options, callback ) {
+export default class Accordion {
 
-	if ( 'undefined' === typeof options.target ) {
-		return false;
+	constructor( element, options = {} ) {
+
+		// Defaults
+		const defaults = {
+
+			// Event callbacks
+			onCreate: null,
+			onOpen: null,
+			onClose: null,
+			onToggle: null,
+		};
+
+		if ( ! element || 'string' !== typeof element ) {
+			console.error( '10up Accordion: No target supplied. A valid target (accordion area) must be used.' ); // eslint-disable-line
+			return;
+		}
+
+		// Accordion Containers
+		this.$accordions = document.querySelectorAll( element );
+
+		// Bail out if there's no accordion.
+		if ( ! this.$accordions  ) {
+			console.error( '10up Accordion: Target not found. A valid target (accordion area) must be used.'  ); // eslint-disable-line
+			return;
+		}
+
+		document.documentElement.classList.add( 'js' );
+
+		// Settings
+		this.settings = Object.assign( {}, defaults, options );
+
+		this.$accordions.forEach( ( accordionArea, index ) => {
+			this.setupAccordion( accordionArea, index );
+		} );
+
+		// Do any callbacks, if assigned.
+		if ( this.settings.onCreate && 'function' === typeof this.settings.onCreate ) {
+			this.settings.onCreate.call();
+		}
 	}
 
-	document.documentElement.className += ' js ';
+	/**
+	 * Initialize a given accordion area
+	 * Configure accordion properties and set AIRA attributes.
+	 *
+	 * @param   {element} $accordionArea      The accordionArea to scope changes
+	 * @param   {number}  $accordionAreaIndex The index of the accordionArea
+	 * @returns {void}
+	 */
+	setupAccordion( accordionArea, accordionAreaIndex ) {
 
-	let accordions = Array.from( document.querySelectorAll( options.target ) );
+		let accordionLinks = accordionArea.querySelectorAll( '.accordion-header' );
+		let accordionContent = accordionArea.querySelectorAll( '.accordion-content' );
 
-	if ( ! accordions ) {
-		return;
+		// Set ARIA attributes for accordion links
+		accordionLinks.forEach( ( accordionLink, index ) => {
+			accordionLink.setAttribute( 'id', 'tab' + accordionAreaIndex + '-' + index );
+			accordionLink.setAttribute( 'aria-selected', 'false' );
+			accordionLink.setAttribute( 'aria-expanded', 'false' );
+			accordionLink.setAttribute( 'aria-controls', 'panel' + accordionAreaIndex + '-' + index );
+			accordionLink.setAttribute( 'role', 'tab' );
+
+			// Handle click event to toggle accordion items
+			accordionLink.addEventListener( 'click', () => {
+				event.preventDefault();
+				this.toggleAccordionItem( event );
+			} );
+		} );
+
+		// Set ARIA attributes for accordion content areas
+		accordionContent.forEach( ( accordionContent, index ) => {
+			accordionContent.setAttribute( 'id', 'panel' + accordionAreaIndex + '-' + index );
+			accordionContent.setAttribute( 'aria-hidden', 'true' );
+			accordionContent.setAttribute( 'aria-labelledby', 'tab' + accordionAreaIndex + '-' + index );
+			accordionContent.setAttribute( 'role', 'tabpanel' );
+		} );
 	}
 
-	// Itterate though each accordion
-	accordions.forEach( ( accordion, topIndex ) => {
-		topIndex = topIndex + 1;
+	/**
+	 * Toggles a given accordion item
+	 * Add or remove necessary CSS classes and toggle AIRA attributes.
 
-		let accordionContent = Array.from( accordion.getElementsByClassName( 'accordion-content' ) ),
-			accordionHeader  = Array.from( accordion.getElementsByClassName( 'accordion-header' ) );
+	 * @param   {object} $event The accordion click event
+	 * @returns {void}
+	 */
+	toggleAccordionItem( event ) {
 
-		// Itterate though each accordion header, set attributes, add click handler
-		accordionHeader.forEach( ( value, index ) => {
-			let head = value;
-			index = index + 1;
+		let accordionLink = event.target;
+		let accordionContent = accordionLink.nextElementSibling;
+		let accordionHeading = accordionContent.querySelector( '.accordion-label' );
 
-			// Set ARIA and ID attributes
-			head.setAttribute( 'id', 'tab' + topIndex + '-' + index );
-			head.setAttribute( 'aria-selected', 'false' );
-			head.setAttribute( 'aria-expanded', 'false' );
-			head.setAttribute( 'aria-controls', 'panel' + topIndex + '-' + index );
-			head.setAttribute( 'role', 'tab' );
+		// Toggle active class on accordion link and content
+		accordionLink.classList.toggle( 'is-active' );
+		accordionContent.classList.toggle( 'is-active' );
 
-			head.addEventListener( 'click', accordionHandle );
+		// Set focus on the accordion heading
+		accordionHeading.setAttribute( 'tabindex', -1 );
+		accordionHeading.focus();
 
-			function accordionHandle() {
+		if ( accordionContent.classList.contains( 'is-active' ) ) {
+			// Show accordion item
+			accordionLink.setAttribute( 'aria-selected', 'true' );
+			accordionLink.setAttribute( 'aria-expanded', 'true' );
+			accordionContent.setAttribute( 'aria-hidden', 'false' );
 
-				let nextPanel = value.nextElementSibling,
-					nextPanelLabel = nextPanel.getElementsByClassName( 'accordion-label' )[0];
-
-				value.classList.toggle( 'is-active' );
-
-				nextPanel.classList.toggle( 'is-active' );
-
-				nextPanelLabel.setAttribute( 'tabindex', -1 );
-				nextPanelLabel.focus();
-
-				if ( nextPanel.classList.contains( 'is-active' ) ) {
-					head.setAttribute( 'aria-selected', 'true' );
-					head.setAttribute( 'aria-expanded', 'true' );
-					nextPanel.setAttribute( 'aria-hidden', 'false' );
-				} else {
-					head.setAttribute( 'aria-selected', 'false' );
-					head.setAttribute( 'aria-expanded', 'false' );
-					nextPanel.setAttribute( 'aria-hidden', 'true' );
-				}
+			// Custom accordion open callback
+			if ( this.settings.onOpen && 'function' === typeof this.settings.onOpen ) {
+				this.settings.onOpen.call();
 			}
-		} );
+		} else {
+			// Hide accordion item
+			accordionLink.setAttribute( 'aria-selected', 'false' );
+			accordionLink.setAttribute( 'aria-expanded', 'false' );
+			accordionContent.setAttribute( 'aria-hidden', 'true' );
 
-		// Itterate though each accordion content section and set attributes
-		accordionContent.forEach( ( value, index ) => {
-			let content = value;
-			index = index + 1;
+			// Custom accordion close callback
+			if ( this.settings.onClose && 'function' === typeof this.settings.onClose ) {
+				this.settings.onClose.call();
+			}
+		}
 
-			// Set ARIA and ID attributes
-			content.setAttribute( 'id', 'panel' + topIndex + '-' + index );
-			content.setAttribute( 'aria-hidden', 'true' );
-			content.setAttribute( 'aria-labelledby', 'tab' + topIndex + '-' + index );
-			content.setAttribute( 'role', 'tabpanel' );
-		} );
-
-	} );
-
-	// Execute the callback function
-	if ( 'function' === typeof callback ) {
-		callback.call();
+		// Custom accordion toggle callback
+		if ( this.settings.onToggle && 'function' === typeof this.settings.onToggle ) {
+			this.settings.onToggle.call();
+		}
 	}
-
 }
+
