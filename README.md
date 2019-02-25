@@ -100,4 +100,4 @@ let myAccordion = new TenUp.accordion( '.accordion', {
 
 ## Demo
 
-An example implementation can be found in the `index.html` file in the root of this package.
+An example implementation can be found in the `demo/index.html`.
