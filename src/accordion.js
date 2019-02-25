@@ -2,6 +2,12 @@
 
 export default class Accordion {
 
+	/**
+	 * Create an Accordion instance.
+	 * @module @10up/component-accordion
+	 * @param {string} element Element selector for accordion container.
+	 * @param {object} options Object of optional callbacks.
+	 */
 	constructor( element, options = {} ) {
 
 		// Defaults
@@ -47,8 +53,8 @@ export default class Accordion {
 	 * Initialize a given accordion area
 	 * Configure accordion properties and set AIRA attributes.
 	 *
-	 * @param   {element} $accordionArea      The accordionArea to scope changes
-	 * @param   {number}  $accordionAreaIndex The index of the accordionArea
+	 * @param   {element} accordionArea      The accordionArea to scope changes
+	 * @param   {number}  accordionAreaIndex The index of the accordionArea
 	 * @returns {void}
 	 */
 	setupAccordion( accordionArea, accordionAreaIndex ) {
@@ -84,7 +90,7 @@ export default class Accordion {
 	 * Toggles a given accordion item
 	 * Add or remove necessary CSS classes and toggle AIRA attributes.
 
-	 * @param   {object} $event The accordion click event
+	 * @param   {object} event The accordion click event
 	 * @returns {void}
 	 */
 	toggleAccordionItem( event ) {
