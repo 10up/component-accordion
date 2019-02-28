@@ -8,8 +8,7 @@
   "scripts": {
     "start": "npm install && npm run build",
     "build": "webpack",
-    "watch": "webpack --watch",
-    "jsdoc": "jsdoc ./src/accordion.js --destination ./docs/"
+    "watch": "webpack --watch"
   },
   "repository": {
     "type": "git",
