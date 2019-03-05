@@ -1,5 +1,15 @@
 'use strict';
 
+/**
+ * @module @10up/Accordion
+ *
+ * @description
+ *
+ * Create an accordion UI.
+ *
+ * @param {string} element Element selector for accordion container.
+ * @param {Object} options Object of optional callbacks.
+ */
 export default class Accordion {
 
 	constructor( element, options = {} ) {
@@ -19,7 +29,7 @@ export default class Accordion {
 			return;
 		}
 
-		// Accordion Containers
+		// Accordion containers
 		this.$accordions = document.querySelectorAll( element );
 
 		// Bail out if there's no accordion.
@@ -37,19 +47,22 @@ export default class Accordion {
 			this.setupAccordion( accordionArea, index );
 		} );
 
-		// Do any callbacks, if assigned.
+		/**
+		 * Called after the accordion is initialized on page load.
+		 * @callback onCreate
+		 */
 		if ( this.settings.onCreate && 'function' === typeof this.settings.onCreate ) {
 			this.settings.onCreate.call();
 		}
 	}
 
 	/**
-	 * Initialize a given accordion area
-	 * Configure accordion properties and set AIRA attributes.
+	 * Initialize a given accordion area.
+	 * Configure accordion properties and set ARIA attributes.
 	 *
-	 * @param   {element} $accordionArea      The accordionArea to scope changes
-	 * @param   {number}  $accordionAreaIndex The index of the accordionArea
-	 * @returns {void}
+	 * @param   {element} accordionArea      The accordionArea to scope changes.
+	 * @param   {number}  accordionAreaIndex The index of the accordionArea.
+	 * @returns {null}
 	 */
 	setupAccordion( accordionArea, accordionAreaIndex ) {
 
@@ -81,11 +94,11 @@ export default class Accordion {
 	}
 
 	/**
-	 * Toggles a given accordion item
-	 * Add or remove necessary CSS classes and toggle AIRA attributes.
+	 * Toggles a given accordion item.
+	 * Add or remove necessary CSS classes and toggle ARIA attributes.
 
-	 * @param   {object} $event The accordion click event
-	 * @returns {void}
+	 * @param   {Object} event The accordion click event
+	 * @returns {null}
 	 */
 	toggleAccordionItem( event ) {
 
@@ -93,11 +106,11 @@ export default class Accordion {
 		let accordionContent = accordionLink.nextElementSibling;
 		let accordionHeading = accordionContent.querySelector( '.accordion-label' );
 
-		// Toggle active class on accordion link and content
+		// Toggle active class on accordion link and content.
 		accordionLink.classList.toggle( 'is-active' );
 		accordionContent.classList.toggle( 'is-active' );
 
-		// Set focus on the accordion heading
+		// Set focus on the accordion heading.
 		accordionHeading.setAttribute( 'tabindex', -1 );
 		accordionHeading.focus();
 
@@ -107,7 +120,10 @@ export default class Accordion {
 			accordionLink.setAttribute( 'aria-expanded', 'true' );
 			accordionContent.setAttribute( 'aria-hidden', 'false' );
 
-			// Custom accordion open callback
+			/**
+			 * Called when an accordion item is opened.
+			 * @callback onOpen
+			 */
 			if ( this.settings.onOpen && 'function' === typeof this.settings.onOpen ) {
 				this.settings.onOpen.call();
 			}
@@ -117,13 +133,19 @@ export default class Accordion {
 			accordionLink.setAttribute( 'aria-expanded', 'false' );
 			accordionContent.setAttribute( 'aria-hidden', 'true' );
 
-			// Custom accordion close callback
+			/**
+			 * Called when an accordion item is closed.
+			 * @callback onClose
+			 */
 			if ( this.settings.onClose && 'function' === typeof this.settings.onClose ) {
 				this.settings.onClose.call();
 			}
 		}
 
-		// Custom accordion toggle callback
+		/**
+		 * Called when an accordion item is toggled.
+		 * @callback onToggle
+		 */
 		if ( this.settings.onToggle && 'function' === typeof this.settings.onToggle ) {
 			this.settings.onToggle.call();
 		}
