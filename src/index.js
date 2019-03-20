@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 import Accordion from './accordion';
 
 if ( 'object' !== typeof window.TenUp ) {

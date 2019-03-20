@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 'use strict';
 
 /**
@@ -69,6 +70,15 @@ export default class Accordion {
 		let accordionLinks = accordionArea.querySelectorAll( '.accordion-header' );
 		let accordionContent = accordionArea.querySelectorAll( '.accordion-content' );
 
+		// Handle keydown event to move between accordion items
+		accordionArea.addEventListener( 'keydown', () => {
+			let selectedElement = event.target;
+			let key = event.which;
+			if( selectedElement.classList.contains( 'accordion-header' ) ) {
+				this.accessKeyBindings( accordionLinks, selectedElement, key );
+			}
+		} );
+
 		// Set ARIA attributes for accordion links
 		accordionLinks.forEach( ( accordionLink, index ) => {
 			accordionLink.setAttribute( 'id', `tab${accordionAreaIndex}-${index}` );
@@ -112,7 +122,7 @@ export default class Accordion {
 
 		// Set focus on the accordion heading.
 		accordionHeading.setAttribute( 'tabindex', -1 );
-		accordionHeading.focus();
+		accordionLink.focus();
 
 		if ( accordionContent.classList.contains( 'is-active' ) ) {
 			// Show accordion item
@@ -149,6 +159,58 @@ export default class Accordion {
 		if ( this.settings.onToggle && 'function' === typeof this.settings.onToggle ) {
 			this.settings.onToggle.call();
 		}
+	}
+
+	/**
+	 * Moves and focus between items based on the selected item and the key pressed.
+
+	 * @param   {element[]} accordionLinks The array of accordion links.
+	 * @param	{element} selectedElement The accordion link where the key action triggers.
+	 * @param	{number} key The key code of the key pressed.
+	 * @returns {null}
+	 */
+	accessKeyBindings( accordionLinks, selectedElement, key ) {
+
+		let linkIndex;
+		let newLinkIndex;
+
+		accordionLinks.forEach( ( accordionLink, index ) => {
+			if ( selectedElement == accordionLink ){
+				linkIndex = index;
+			}
+		} );
+
+		switch ( key ) {
+				//End key
+				case 35:
+					linkIndex = accordionLinks.length-1;
+					event.preventDefault();
+					break;
+				//Home key
+				case 36:
+					linkIndex = 0;
+					event.preventDefault();
+					break;
+				//Up arrow
+				case 38:
+					linkIndex--;
+					if ( 0 > linkIndex ) {
+						linkIndex = accordionLinks.length-1;
+					}
+					event.preventDefault();
+					break;
+				//Down arrow
+				case 40:
+					linkIndex++;
+					if ( linkIndex > accordionLinks.length-1 ) {
+						linkIndex = 0;
+					}
+					event.preventDefault();
+					break;
+		}
+
+		newLinkIndex = linkIndex;
+		accordionLinks[newLinkIndex].focus();
 	}
 }
 
