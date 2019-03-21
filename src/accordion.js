@@ -78,7 +78,7 @@ export default class Accordion {
 			accordionLink.setAttribute( 'role', 'tab' );
 
 			// Handle click event to toggle accordion items
-			accordionLink.addEventListener( 'click', () => {
+			accordionLink.addEventListener( 'click', ( event ) => {
 				event.preventDefault();
 				this.toggleAccordionItem( event );
 			} );
