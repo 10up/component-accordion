@@ -1,4 +1,3 @@
-/* eslint-disable linebreak-style */
 'use strict';
 
 /**
@@ -71,11 +70,11 @@ export default class Accordion {
 		let accordionContent = accordionArea.querySelectorAll( '.accordion-content' );
 
 		// Handle keydown event to move between accordion items
-		accordionArea.addEventListener( 'keydown', () => {
+		accordionArea.addEventListener( 'keydown', ( event ) => {
 			let selectedElement = event.target;
 			let key = event.which;
 			if( selectedElement.classList.contains( 'accordion-header' ) ) {
-				this.accessKeyBindings( accordionLinks, selectedElement, key );
+				this.accessKeyBindings( accordionLinks, selectedElement, key ,event );
 			}
 		} );
 
@@ -88,7 +87,7 @@ export default class Accordion {
 			accordionLink.setAttribute( 'role', 'tab' );
 
 			// Handle click event to toggle accordion items
-			accordionLink.addEventListener( 'click', () => {
+			accordionLink.addEventListener( 'click', ( event ) => {
 				event.preventDefault();
 				this.toggleAccordionItem( event );
 			} );
@@ -167,9 +166,10 @@ export default class Accordion {
 	 * @param   {element[]} accordionLinks The array of accordion links.
 	 * @param	{element} selectedElement The accordion link where the key action triggers.
 	 * @param	{number} key The key code of the key pressed.
+	 * @param	{Object} event The accordion keydown event.
 	 * @returns {null}
 	 */
-	accessKeyBindings( accordionLinks, selectedElement, key ) {
+	accessKeyBindings( accordionLinks, selectedElement, key, event ) {
 
 		let linkIndex;
 		let newLinkIndex;
