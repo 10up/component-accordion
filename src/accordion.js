@@ -12,6 +12,11 @@
  */
 export default class Accordion {
 
+	/**
+	 * constructor function
+	 * @param element Ojbect
+	 * @param options Ojbect
+	 */
 	constructor( element, options = {} ) {
 
 		// Defaults
@@ -66,13 +71,13 @@ export default class Accordion {
 	 */
 	setupAccordion( accordionArea, accordionAreaIndex ) {
 
-		let accordionLinks = accordionArea.querySelectorAll( '.accordion-header' );
-		let accordionContent = accordionArea.querySelectorAll( '.accordion-content' );
+		const accordionLinks = accordionArea.querySelectorAll( '.accordion-header' );
+		const accordionContent = accordionArea.querySelectorAll( '.accordion-content' );
 
 		// Handle keydown event to move between accordion items
 		accordionArea.addEventListener( 'keydown', ( event ) => {
-			let selectedElement = event.target;
-			let key = event.which;
+			const selectedElement = event.target;
+			const key = event.which;
 			if( selectedElement.classList.contains( 'accordion-header' ) ) {
 				this.accessKeyBindings( accordionLinks, selectedElement, key ,event );
 			}
@@ -111,9 +116,9 @@ export default class Accordion {
 	 */
 	toggleAccordionItem( event ) {
 
-		let accordionLink = event.target;
-		let accordionContent = accordionLink.nextElementSibling;
-		let accordionHeading = accordionContent.querySelector( '.accordion-label' );
+		const accordionLink = event.target;
+		const accordionContent = accordionLink.nextElementSibling;
+		const accordionHeading = accordionContent.querySelector( '.accordion-label' );
 
 		// Toggle active class on accordion link and content.
 		accordionLink.classList.toggle( 'is-active' );
@@ -172,7 +177,6 @@ export default class Accordion {
 	accessKeyBindings( accordionLinks, selectedElement, key, event ) {
 
 		let linkIndex;
-		let newLinkIndex;
 
 		accordionLinks.forEach( ( accordionLink, index ) => {
 			if ( selectedElement == accordionLink ){
@@ -209,8 +213,7 @@ export default class Accordion {
 					break;
 		}
 
-		newLinkIndex = linkIndex;
+		const newLinkIndex = linkIndex;
 		accordionLinks[newLinkIndex].focus();
 	}
 }
-
