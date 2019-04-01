@@ -54,7 +54,7 @@ module.exports = {
 			port: 3000,
 			server: { baseDir: [ __dirname ] },
 			notify: false,
-			files: ['index.html', 'dist/**/*'],
+			files: ['demo/index.html', 'dist/**/*'],
 			stream: { once: true },
 			injectChanges: true
 		} ),
