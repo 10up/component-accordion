@@ -98,9 +98,8 @@ let myAccordion = new TenUp.accordion( '.accordion', {
 } );
 ```
 
-## Testing
-
-Run `npm run test-a11y` and establish tests with [pa11y](https://github.com/pa11y/pa11y) integration. See: `tests/accessibility/pa11y.js` to get started.
+## Tests and CI
+All merge requests are run through pa11y (via Travis CI). Be sure to test your code before submitting a pull request: `npm run test-a11y`
 
 ## Demo
 

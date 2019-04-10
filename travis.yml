@@ -1,0 +1,3 @@
+# Build script
+script:
+  - npm run start & sleep 15; npm run test-a11y;

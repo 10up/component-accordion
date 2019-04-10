@@ -9,7 +9,7 @@
     "start": "npm install && npm run build",
     "build": "webpack",
     "watch": "webpack --watch",
-    "test-a11y": "node tests/accessibility/pa11y.js"
+    "test-a11y": "./node_modules/.bin/pa11y-ci"
   },
   "repository": {
     "type": "git",
@@ -33,7 +33,7 @@
     "eslint": "^5.15.3",
     "eslint-loader": "^2.1.2",
     "mini-css-extract-plugin": "^0.4.5",
-    "pa11y": "^5.1.0",
+    "pa11y-ci": "^2.1.1",
     "postcss": "^7.0.14",
     "postcss-import": "^12.0.1",
     "postcss-loader": "^3.0.0",
@@ -43,11 +43,5 @@
   },
   "dependencies": {
     "@babel/polyfill": "^7.4.0"
-  },
-  "testing": {
-    "file": "./demo/index.html",
-    "accessibility": {
-      "compliance": "WCAG2AA"
-    }
   }
 }

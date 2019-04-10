@@ -1,0 +1,13 @@
+{
+  "defaults": {
+    "timeout": 4000,
+    "standard": "WCAG2AA",
+    "includeWarnings": true,
+    "rootElement": "body",
+    "threshold": 2,
+    "width": 1280
+  },
+  "urls": [
+    "./demo/index.html"
+  ]
+}
