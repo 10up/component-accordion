@@ -43,5 +43,11 @@
   },
   "dependencies": {
     "@babel/polyfill": "^7.4.0"
+  },
+  "testing": {
+    "file": "./demo/index.html",
+    "accessibility": {
+      "compliance": "WCAG2AA"
+    }
   }
 }
