@@ -102,7 +102,6 @@ export default class Accordion {
 			accordionContent.setAttribute( 'id', `panel${accordionAreaIndex}-${index}` );
 			accordionContent.setAttribute( 'aria-hidden', 'true' );
 			accordionContent.setAttribute( 'aria-labelledby', `tab${accordionAreaIndex}-${index}` );
-			accordionContent.setAttribute( 'role', 'tabpanel' );
 		} );
 	}
 
