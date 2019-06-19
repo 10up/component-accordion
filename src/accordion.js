@@ -89,7 +89,6 @@ export default class Accordion {
 			accordionLink.setAttribute( 'aria-selected', 'false' );
 			accordionLink.setAttribute( 'aria-expanded', 'false' );
 			accordionLink.setAttribute( 'aria-controls', `panel${accordionAreaIndex}-${index}` );
-			accordionLink.setAttribute( 'role', 'tab' );
 
 			// Handle click event to toggle accordion items
 			accordionLink.addEventListener( 'click', ( event ) => {
