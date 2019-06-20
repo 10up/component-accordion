@@ -86,7 +86,6 @@ export default class Accordion {
 		// Set ARIA attributes for accordion links
 		accordionLinks.forEach( ( accordionLink, index ) => {
 			accordionLink.setAttribute( 'id', `tab${accordionAreaIndex}-${index}` );
-			accordionLink.setAttribute( 'aria-selected', 'false' );
 			accordionLink.setAttribute( 'aria-expanded', 'false' );
 			accordionLink.setAttribute( 'aria-controls', `panel${accordionAreaIndex}-${index}` );
 
@@ -128,7 +127,6 @@ export default class Accordion {
 
 		if ( accordionContent.classList.contains( 'is-active' ) ) {
 			// Show accordion item
-			accordionLink.setAttribute( 'aria-selected', 'true' );
 			accordionLink.setAttribute( 'aria-expanded', 'true' );
 			accordionContent.setAttribute( 'aria-hidden', 'false' );
 
@@ -141,7 +139,6 @@ export default class Accordion {
 			}
 		} else {
 			// Hide accordion item
-			accordionLink.setAttribute( 'aria-selected', 'false' );
 			accordionLink.setAttribute( 'aria-expanded', 'false' );
 			accordionContent.setAttribute( 'aria-hidden', 'true' );
 
