@@ -108,7 +108,9 @@ export default class Accordion {
 	 * Open a given accordion item
 	 * Add or remove necessary CSS classes and toggle ARIA attributes.
 	 * 
-	 * @param {*} accordionLink The accordion item
+	 * @param {element} accordionLink The accordion heading link
+	 * @param {element} accordionContent The accordion content to open
+	 * @returns {null}
 	 */
 	openAccordionItem( accordionLink, accordionContent ) {
 		accordionLink.setAttribute( 'aria-expanded', 'true' );
@@ -127,8 +129,9 @@ export default class Accordion {
 	 * Close a given accordion item
 	 * Add or remove necessary CSS classes and toggle ARIA attributes.
 	 * 
-	 * @param {*} accordionLink 
-	 * @param {*} accordionContent 
+	 * @param {element} accordionLink The accordion heading link
+	 * @param {element} accordionContent The accordion content to open
+	 * @returns {null}
 	 */
 	closeAccordionItem( accordionLink, accordionContent ) {
 		accordionLink.setAttribute( 'aria-expanded', 'false' );
