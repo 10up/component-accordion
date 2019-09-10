@@ -164,8 +164,10 @@ export default class Accordion {
 		accordionContent.classList.toggle( 'is-active' );
 
 		// Set focus on the accordion heading.
-		accordionHeading.setAttribute( 'tabindex', -1 );
-		accordionLink.focus();
+		if ( accordionHeading ) {
+			accordionHeading.setAttribute( 'tabindex', -1 );
+			accordionHeading.focus();
+		}
 
 		if ( accordionContent.classList.contains( 'is-active' ) ) {
 			this.openAccordionItem( accordionLink, accordionContent );
