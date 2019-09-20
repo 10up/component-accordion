@@ -105,6 +105,48 @@ export default class Accordion {
 	}
 
 	/**
+	 * Open a given accordion item
+	 * Add or remove necessary CSS classes and toggle ARIA attributes.
+	 * 
+	 * @param {element} accordionLink The accordion heading link
+	 * @param {element} accordionContent The accordion content to open
+	 * @returns {null}
+	 */
+	openAccordionItem( accordionLink, accordionContent ) {
+		accordionLink.setAttribute( 'aria-expanded', 'true' );
+		accordionContent.setAttribute( 'aria-hidden', 'false' );
+
+		/**
+		 * Called when an accordion item is opened.
+		 * @callback onOpen
+		 */
+		if ( this.settings.onOpen && 'function' === typeof this.settings.onOpen ) {
+			this.settings.onOpen.call();
+		}
+	}
+
+	/**
+	 * Close a given accordion item
+	 * Add or remove necessary CSS classes and toggle ARIA attributes.
+	 * 
+	 * @param {element} accordionLink The accordion heading link
+	 * @param {element} accordionContent The accordion content to open
+	 * @returns {null}
+	 */
+	closeAccordionItem( accordionLink, accordionContent ) {
+		accordionLink.setAttribute( 'aria-expanded', 'false' );
+		accordionContent.setAttribute( 'aria-hidden', 'true' );
+
+		/**
+		 * Called when an accordion item is closed.
+		 * @callback onClose
+		 */
+		if ( this.settings.onClose && 'function' === typeof this.settings.onClose ) {
+			this.settings.onClose.call();
+		}
+	}
+
+	/**
 	 * Toggles a given accordion item.
 	 * Add or remove necessary CSS classes and toggle ARIA attributes.
 
@@ -128,29 +170,9 @@ export default class Accordion {
 		}
 
 		if ( accordionContent.classList.contains( 'is-active' ) ) {
-			// Show accordion item
-			accordionLink.setAttribute( 'aria-expanded', 'true' );
-			accordionContent.setAttribute( 'aria-hidden', 'false' );
-
-			/**
-			 * Called when an accordion item is opened.
-			 * @callback onOpen
-			 */
-			if ( this.settings.onOpen && 'function' === typeof this.settings.onOpen ) {
-				this.settings.onOpen.call();
-			}
+			this.openAccordionItem( accordionLink, accordionContent );
 		} else {
-			// Hide accordion item
-			accordionLink.setAttribute( 'aria-expanded', 'false' );
-			accordionContent.setAttribute( 'aria-hidden', 'true' );
-
-			/**
-			 * Called when an accordion item is closed.
-			 * @callback onClose
-			 */
-			if ( this.settings.onClose && 'function' === typeof this.settings.onClose ) {
-				this.settings.onClose.call();
-			}
+			this.closeAccordionItem( accordionLink, accordionContent );
 		}
 
 		/**
