@@ -61,9 +61,9 @@ Create a new instance by supplying the selector to use for the accordion and an 
 #### NPM
 
 ```javascript
-import accordion from '@10up/component-accordion';
+import Accordion from '@10up/component-accordion';
 
-new accordion( '.accordion', {
+new Accordion( '.accordion', {
 	onCreate: function() {
 		console.log( 'onCreate callback' );
 	},
