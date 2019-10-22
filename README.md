@@ -63,7 +63,7 @@ Create a new instance by supplying the selector to use for the accordion and an 
 ```javascript
 import accordion from '@10up/component-accordion';
 
-accordion( '.accordion', {
+new accordion( '.accordion', {
 	onCreate: function() {
 		console.log( 'onCreate callback' );
 	},
