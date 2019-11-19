@@ -8,7 +8,8 @@
   "scripts": {
     "start": "npm install && npm run build",
     "build": "webpack",
-    "watch": "webpack --watch"
+    "watch": "webpack --watch",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -28,14 +29,17 @@
     "babel-loader": "^8.0.5",
     "browser-sync": "^2.26.7",
     "browser-sync-webpack-plugin": "^2.2.2",
+    "caniuse-lite": "^1.0.30001010",
     "css-loader": "^1.0.1",
     "eslint": "^5.15.3",
     "eslint-loader": "^2.1.2",
+    "jest": "^24.9.0",
     "mini-css-extract-plugin": "^0.4.5",
     "postcss": "^7.0.14",
     "postcss-import": "^12.0.1",
     "postcss-loader": "^3.0.0",
     "postcss-preset-env": "^5.3.0",
+    "puppeteer": "^2.0.0",
     "webpack": "^4.29.6",
     "webpack-cli": "^3.3.0"
   },
