@@ -2,6 +2,10 @@
 
 [![Support Level](https://img.shields.io/badge/support-active-green.svg)](#support-level)
 
+[![Build Status][cli-img]][cli-url]
+[cli-img]: https://travis-ci.org/10up/component-accordion.svg?branch=master
+[cli-url]: https://travis-ci.org/10up/component-accordion
+
 The most important thing to remember when implementing this accordion is that the trigger (the element you click to open a drawer) needs to be a focusable element. In this case, we’re using a button and applying all the ARIA attributes with JavaScript. If JavaScript isn’t enabled, each drawer will be in its natural open state.
 
 ## Installation
