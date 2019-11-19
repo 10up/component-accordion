@@ -108,7 +108,5 @@ describe( 'Accessibility Tests', () => {
 } );
 
 afterAll( () => {
-	page.waitFor(3000);
 	browser.close();
-
 } );
