@@ -3,6 +3,7 @@
 [![Support Level](https://img.shields.io/badge/support-active-green.svg)](#support-level)
 
 [![Build Status][cli-img]][cli-url]
+
 [cli-img]: https://travis-ci.org/10up/component-accordion.svg?branch=master
 [cli-url]: https://travis-ci.org/10up/component-accordion
 
