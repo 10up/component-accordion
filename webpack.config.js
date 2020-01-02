@@ -23,7 +23,10 @@ module.exports = {
 				exclude: /(node_modules)/,
 				enforce: 'pre',
 				use: {
-					loader: 'eslint-loader'
+					loader: 'eslint-loader',
+					options: {
+						fix: true
+					}
 				}
 			},
 			{

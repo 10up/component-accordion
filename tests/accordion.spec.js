@@ -86,29 +86,27 @@ describe( 'Accessibility Tests', () => {
 		tree = await page.accessibility.snapshot();
 
 		// The second button should have focus
-		await expect(tree.children[1].focused).toBe(true);
+		await expect( tree.children[1].focused ).toBe( true );
 
 		// Select the last item
-		await page.focus('.accordion-header:last-of-type');
+		await page.focus( '.accordion-header:last-of-type' );
 		await page.keyboard.press( 'ArrowDown' );
 		tree = await page.accessibility.snapshot();
 
 		// The first button should have focus
-		await expect(tree.children[0].focused).toBe(true);
+		await expect( tree.children[0].focused ).toBe( true );
 
 		// On the first item, hit the up arrow
 		await page.keyboard.press( 'ArrowUp' );
 		tree = await page.accessibility.snapshot();
 
 		// The last button should have focus
-		await expect(tree.children[3].focused).toBe(true);
+		await expect( tree.children[3].focused ).toBe( true );
 
 	} );
 
 } );
 
 afterAll( () => {
-	page.waitFor(3000);
 	browser.close();
-
 } );

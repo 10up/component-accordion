@@ -1,6 +1,6 @@
 {
   "name": "@10up/component-accordion",
-  "version": "1.0.4",
+  "version": "1.0.6",
   "author": "10up",
   "description": "Accessible accordion component.",
   "main": "./src/accordion.js",
@@ -29,7 +29,6 @@
     "babel-loader": "^8.0.5",
     "browser-sync": "^2.26.7",
     "browser-sync-webpack-plugin": "^2.2.2",
-    "caniuse-lite": "^1.0.30001010",
     "css-loader": "^1.0.1",
     "eslint": "^5.15.3",
     "eslint-loader": "^2.1.2",
