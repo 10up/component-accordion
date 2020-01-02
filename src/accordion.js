@@ -29,6 +29,16 @@ export default class Accordion {
 			onToggle: null,
 		};
 
+		// forEach Polyfill
+		if ( window.NodeList && !NodeList.prototype.forEach ) {
+			NodeList.prototype.forEach = function ( callback, thisArg ) {
+				thisArg = thisArg || window;
+				for ( let i = 0; i < this.length; i++ ) {
+					callback.call( thisArg, this[i], i, this );
+				}
+			};
+		}
+
 		if ( ! element || 'string' !== typeof element ) {
 			console.error( '10up Accordion: No target supplied. A valid target (accordion area) must be used.' ); // eslint-disable-line
 			return;
@@ -107,7 +117,7 @@ export default class Accordion {
 	/**
 	 * Open a given accordion item
 	 * Add or remove necessary CSS classes and toggle ARIA attributes.
-	 * 
+	 *
 	 * @param {element} accordionLink The accordion heading link
 	 * @param {element} accordionContent The accordion content to open
 	 * @returns {null}
@@ -128,7 +138,7 @@ export default class Accordion {
 	/**
 	 * Close a given accordion item
 	 * Add or remove necessary CSS classes and toggle ARIA attributes.
-	 * 
+	 *
 	 * @param {element} accordionLink The accordion heading link
 	 * @param {element} accordionContent The accordion content to open
 	 * @returns {null}

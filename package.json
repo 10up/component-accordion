@@ -1,6 +1,6 @@
 {
   "name": "@10up/component-accordion",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "author": "10up",
   "description": "Accessible accordion component.",
   "main": "./src/accordion.js",
