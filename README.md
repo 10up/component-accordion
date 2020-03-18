@@ -1,6 +1,6 @@
 # 10up Accordion component
 
-[![Support Level](https://img.shields.io/badge/support-active-green.svg)](#support-level) [![Build Status][cli-img]][cli-url]
+[![Support Level](https://img.shields.io/badge/support-active-green.svg)](#support-level) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![Build Status][cli-img]][cli-url]
 
 [cli-img]: https://travis-ci.org/10up/component-accordion.svg?branch=master
 [cli-url]: https://travis-ci.org/10up/component-accordion
