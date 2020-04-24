@@ -81,14 +81,20 @@ export default class Accordion {
 	 */
 	setupAccordion( accordionArea, accordionAreaIndex ) {
 
-		const accordionLinks = accordionArea.querySelectorAll( '.accordion-header' );
-		const accordionContent = accordionArea.querySelectorAll( '.accordion-content' );
+		const allAccordionLinks = accordionArea.querySelectorAll( '.accordion-header' );
+		const allAccordionContent = accordionArea.querySelectorAll( '.accordion-content' );
+
+		// Make sure accordionLinks and accordionContent are direct descendants of accordionArea
+		const accordionLinks = Array.prototype.slice.call( allAccordionLinks ).filter( link => link.parentNode === accordionArea );
+		const accordionContent = Array.prototype.slice.call( allAccordionContent ).filter( content => content.parentNode === accordionArea );
 
 		// Handle keydown event to move between accordion items
 		accordionArea.addEventListener( 'keydown', ( event ) => {
 			const selectedElement = event.target;
 			const key = event.which;
-			if( selectedElement.classList.contains( 'accordion-header' ) ) {
+
+			// Make sure the selected element is a header and a direct descendant of the current accordionArea
+			if ( selectedElement.classList.contains( 'accordion-header' ) && selectedElement.parentNode === accordionArea ) {
 				this.accessKeyBindings( accordionLinks, selectedElement, key ,event );
 			}
 		} );
