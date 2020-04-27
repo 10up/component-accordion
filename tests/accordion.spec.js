@@ -52,6 +52,57 @@ describe( 'Accessibility Tests', () => {
 
 	} );
 
+	test( 'Open and close a nested panel with the keyboard', async () => {
+
+		// Visit the page in headless Chrome
+		await page.goto( APP );
+
+		const buttonSelector = '.accordion-header';
+		const nestedButtonSelector = '.accordion .accordion .accordion-header';
+
+		// Get the target element from the aria-controls on the button itself so it isn't hard coded here
+		const targetSelector = await page.evaluate( () => {
+			return document.querySelector( '.accordion-header' ).getAttribute( 'aria-controls' );
+		} );
+
+		const nestedTargetSelector = await page.evaluate( () => {
+			return document.querySelector( '.accordion .accordion .accordion-header' ).getAttribute( 'aria-controls' );
+		} );
+
+		// Open the parent panel
+		await page.keyboard.press( 'Tab' );
+		await page.keyboard.press( String.fromCharCode(13) );
+		await page.waitForSelector( buttonSelector + '[aria-expanded="true"]' );
+		await page.waitForSelector( '#' + targetSelector + '[aria-hidden="false"]' );
+
+		// Open the nested panel
+		await page.keyboard.press( 'Tab' );
+		await page.keyboard.press( 'Tab' );
+		await page.keyboard.press( String.fromCharCode(13) );
+		await page.waitForSelector( nestedButtonSelector + '[aria-expanded="true"]' );
+		await page.waitForSelector( '#' + nestedTargetSelector + '[aria-hidden="false"]' );
+
+		// Close the nested panel
+		await page.keyboard.down( 'Shift' );
+		await page.keyboard.press( 'Tab' );
+		await page.keyboard.up( 'Shift' );
+		await page.keyboard.press( String.fromCharCode(13) );
+		await page.waitForSelector( nestedButtonSelector + '[aria-expanded="false"]' );
+		await page.waitForSelector( '#' + nestedTargetSelector + '[aria-hidden="true"]' );
+
+		// Close the parent panel
+		await page.keyboard.down( 'Shift' );
+		await page.keyboard.press( 'Tab' );
+		await page.keyboard.up( 'Shift' );
+		await page.keyboard.down( 'Shift' );
+		await page.keyboard.press( 'Tab' );
+		await page.keyboard.up( 'Shift' );
+		await page.keyboard.press( String.fromCharCode(13) );
+		await page.waitForSelector( buttonSelector + '[aria-expanded="false"]' );
+		await page.waitForSelector( '#' + targetSelector + '[aria-hidden="true"]' );
+
+	} );
+
 	test( 'Open and close a panel with a mouse', async () => {
 
 		await page.goto( APP );
@@ -75,6 +126,44 @@ describe( 'Accessibility Tests', () => {
 
 	} );
 
+	test( 'Open and close a nested panel with a mouse', async () => {
+
+		await page.goto( APP );
+
+		const buttonSelector = '.accordion-header';
+		const nestedButtonSelector = '.accordion .accordion .accordion-header';
+
+		// Get the target element from the aria-controls on the button itself so it isn't hard coded here
+		const targetSelector = await page.evaluate( () => {
+			return document.querySelector( '.accordion-header' ).getAttribute( 'aria-controls' );
+		} );
+
+		const nestedTargetSelector = await page.evaluate( () => {
+			return document.querySelector( '.accordion .accordion .accordion-header' ).getAttribute( 'aria-controls' );
+		} );
+
+		// Open the parent panel
+		await page.click(buttonSelector);
+		await page.waitForSelector( buttonSelector + '[aria-expanded="true"]' );
+		await page.waitForSelector( '#' + targetSelector + '[aria-hidden="false"]' );
+
+		// Open the nested panel
+		await page.click(nestedButtonSelector);
+		await page.waitForSelector( nestedButtonSelector + '[aria-expanded="true"]' );
+		await page.waitForSelector( '#' + nestedTargetSelector + '[aria-hidden="false"]' );
+
+		// Close the nested panel
+		await page.click(nestedButtonSelector);
+		await page.waitForSelector( nestedButtonSelector + '[aria-expanded="false"]' );
+		await page.waitForSelector( '#' + nestedTargetSelector + '[aria-hidden="true"]' );
+
+		// Close the parent panel
+		await page.click(buttonSelector);
+		await page.waitForSelector( buttonSelector + '[aria-expanded="false"]' );
+		await page.waitForSelector( '#' + targetSelector + '[aria-hidden="true"]' );
+
+	} );
+
 	test( 'Access panels with arrow keys', async () => {
 
 		await page.goto( APP );
@@ -89,7 +178,7 @@ describe( 'Accessibility Tests', () => {
 		await expect( tree.children[1].focused ).toBe( true );
 
 		// Select the last item
-		await page.focus( '.accordion-header:last-of-type' );
+		await page.focus( '.accordion:first-of-type > .accordion-header:last-of-type' );
 		await page.keyboard.press( 'ArrowDown' );
 		tree = await page.accessibility.snapshot();
 
@@ -103,6 +192,38 @@ describe( 'Accessibility Tests', () => {
 		// The last button should have focus
 		await expect( tree.children[3].focused ).toBe( true );
 
+	} );
+
+	test( 'Access nested panels with arrow keys', async () => {
+
+		await page.goto( APP );
+		let tree;
+
+		const buttonSelector = '.accordion-header';
+
+		// Get the target element from the aria-controls on the button itself so it isn't hard coded here
+		const targetSelector = await page.evaluate( () => {
+			return document.querySelector( '.accordion-header' ).getAttribute( 'aria-controls' );
+		} );
+
+		// Open the parent panel
+		await page.click(buttonSelector);
+		await page.waitForSelector( buttonSelector + '[aria-expanded="true"]' );
+		await page.waitForSelector( '#' + targetSelector + '[aria-hidden="false"]' );
+
+		// Select first nested element
+		await page.keyboard.press( 'Tab' );
+		await page.keyboard.press( 'Tab' );
+		await page.keyboard.press( 'ArrowDown' );
+		tree = await page.accessibility.snapshot();
+
+		// The second nested button should have focus
+		await expect( tree.children[5].focused ).toBe( true );
+		await page.keyboard.press( 'ArrowUp' );
+		tree = await page.accessibility.snapshot();
+
+		// The first nested button should have focus
+		await expect( tree.children[4].focused ).toBe( true );
 	} );
 
 } );
