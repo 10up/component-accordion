@@ -47,6 +47,37 @@ This is the markup template expected by the component.
 </div>
 ```
 
+Note: From version 1.1, nested accordions are supported. Example nested accordion markup:
+
+```html
+<div class="accordion">
+	<button class="accordion-header" type="button">Accordion Header with Nested Accordion</button>
+	<div class="accordion-content">
+		<h2 class="accordion-label">Accordion Heading</h2>
+		<p>Here the content of 1st tab.</p>
+
+		<div class="accordion">
+			<button class="accordion-header" type="button">Nested Accordion Header</button>
+			<div class="accordion-content">
+				<h2 class="accordion-label">Nested Accordion Heading</h2>
+				<p>Here the content of the nested 1st tab.</p>
+			</div>
+			<button class="accordion-header" type="button">Nested Accordion Header</button>
+			<div class="accordion-content">
+				<h2 class="accordion-label">Nested Accordion Heading</h2>
+				<p>Here the content of the nested 2nd tab.</p>
+			</div>
+		</div>
+
+	</div>
+	<button class="accordion-header" type="button">Accordion Header</button>
+	<div class="accordion-content">
+		<h2 class="accordion-label">Accordion Heading</h2>
+		<p>Here the content of 2nd tab.</p>
+	</div>
+</div>
+```
+
 ### CSS
 
 The styles can be imported into your existing codebase by using PostCSS imports, or by including the standalone CSS file in your project.
