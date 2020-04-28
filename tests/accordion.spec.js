@@ -89,7 +89,7 @@ describe( 'Accessibility Tests', () => {
 		await expect( tree.children[1].focused ).toBe( true );
 
 		// Select the last item
-		await page.focus( '.accordion-header:last-of-type' );
+		await page.focus( '.accordion.accordion--parent > .accordion-header:last-of-type' );
 		await page.keyboard.press( 'ArrowDown' );
 		tree = await page.accessibility.snapshot();
 

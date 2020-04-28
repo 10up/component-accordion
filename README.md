@@ -1,9 +1,9 @@
 # 10up Accordion component
 
-[![Support Level](https://img.shields.io/badge/support-active-green.svg)](#support-level) [![Build Status][cli-img]][cli-url]
+[![Support Level](https://img.shields.io/badge/support-active-green.svg)](#support-level) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![Build Status][cli-img]][cli-url]
 
-[cli-img]: https://travis-ci.org/10up/component-accordion.svg?branch=master
-[cli-url]: https://travis-ci.org/10up/component-accordion
+[cli-img]: https://github.com/10up/component-accordion/workflows/Automated%20Tests/badge.svg
+[cli-url]: https://github.com/10up/component-accordion/actions?query=workflow%3A%22Automated+Tests%22
 
 The most important thing to remember when implementing this accordion is that the trigger (the element you click to open a drawer) needs to be a focusable element. In this case, we’re using a button and applying all the ARIA attributes with JavaScript. If JavaScript isn’t enabled, each drawer will be in its natural open state.
 
