@@ -5,9 +5,9 @@
 [cli-img]: https://github.com/10up/component-accordion/workflows/Automated%20Tests/badge.svg
 [cli-url]: https://github.com/10up/component-accordion/actions?query=workflow%3A%22Automated+Tests%22
 
-## Installation
-
 [View official documentation for this package](https://baseline.10up.com/component/accordion)
+
+## Installation
 
 `npm install --save @10up/component-accordion`
 
