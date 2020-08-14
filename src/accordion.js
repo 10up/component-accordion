@@ -13,9 +13,10 @@
 export default class Accordion {
 
 	/**
-	 * constructor function
-	 * @param element Ojbect
-	 * @param options Ojbect
+	 * Constructor
+	 *
+	 * @param {string} element Element selector for accordion container.
+	 * @param {object} options Options object passed from init.
 	 */
 	constructor( element, options = {} ) {
 
@@ -77,7 +78,6 @@ export default class Accordion {
 	 *
 	 * @param   {element} accordionArea      The accordionArea to scope changes.
 	 * @param   {number}  accordionAreaIndex The index of the accordionArea.
-	 * @returns {null}
 	 */
 	setupAccordion( accordionArea, accordionAreaIndex ) {
 
@@ -124,20 +124,20 @@ export default class Accordion {
 	 * Open a given accordion item
 	 * Add or remove necessary CSS classes and toggle ARIA attributes.
 	 *
-	 * @param {element} accordionLink The accordion heading link
-	 * @param {element} accordionContent The accordion content to open
-	 * @returns {null}
+	 * @param {object} accordionObject The accordion object. Contains link, heading, content.
 	 */
-	openAccordionItem( accordionLink, accordionContent ) {
-		accordionLink.setAttribute( 'aria-expanded', 'true' );
-		accordionContent.setAttribute( 'aria-hidden', 'false' );
+	openAccordionItem( accordionObject ) {
+		const { link, content } = accordionObject;
+
+		link.setAttribute( 'aria-expanded', 'true' );
+		content.setAttribute( 'aria-hidden', 'false' );
 
 		/**
 		 * Called when an accordion item is opened.
 		 * @callback onOpen
 		 */
 		if ( this.settings.onOpen && 'function' === typeof this.settings.onOpen ) {
-			this.settings.onOpen.call();
+			this.settings.onOpen( accordionObject );
 		}
 	}
 
@@ -145,20 +145,20 @@ export default class Accordion {
 	 * Close a given accordion item
 	 * Add or remove necessary CSS classes and toggle ARIA attributes.
 	 *
-	 * @param {element} accordionLink The accordion heading link
-	 * @param {element} accordionContent The accordion content to open
-	 * @returns {null}
+	 * @param {object} accordionObject The accordion object. Contains link, heading, content.
 	 */
-	closeAccordionItem( accordionLink, accordionContent ) {
-		accordionLink.setAttribute( 'aria-expanded', 'false' );
-		accordionContent.setAttribute( 'aria-hidden', 'true' );
+	closeAccordionItem( accordionObject ) {
+		const { link, content } = accordionObject;
+
+		link.setAttribute( 'aria-expanded', 'false' );
+		content.setAttribute( 'aria-hidden', 'true' );
 
 		/**
 		 * Called when an accordion item is closed.
 		 * @callback onClose
 		 */
 		if ( this.settings.onClose && 'function' === typeof this.settings.onClose ) {
-			this.settings.onClose.call();
+			this.settings.onClose( accordionObject );
 		}
 	}
 
@@ -167,13 +167,17 @@ export default class Accordion {
 	 * Add or remove necessary CSS classes and toggle ARIA attributes.
 
 	 * @param   {Object} event The accordion click event
-	 * @returns {null}
 	 */
 	toggleAccordionItem( event ) {
 
 		const accordionLink = event.target;
 		const accordionContent = accordionLink.nextElementSibling;
 		const accordionHeading = accordionContent.querySelector( '.accordion-label' );
+		const accordionObject = {
+			link: accordionLink,
+			content: accordionContent,
+			heading: accordionHeading,
+		};
 
 		// Toggle active class on accordion link and content.
 		accordionLink.classList.toggle( 'is-active' );
@@ -186,9 +190,9 @@ export default class Accordion {
 		}
 
 		if ( accordionContent.classList.contains( 'is-active' ) ) {
-			this.openAccordionItem( accordionLink, accordionContent );
+			this.openAccordionItem( accordionObject );
 		} else {
-			this.closeAccordionItem( accordionLink, accordionContent );
+			this.closeAccordionItem( accordionObject );
 		}
 
 		/**
@@ -196,7 +200,7 @@ export default class Accordion {
 		 * @callback onToggle
 		 */
 		if ( this.settings.onToggle && 'function' === typeof this.settings.onToggle ) {
-			this.settings.onToggle.call();
+			this.settings.onToggle( accordionObject );
 		}
 	}
 
@@ -207,7 +211,6 @@ export default class Accordion {
 	 * @param	{element} selectedElement The accordion link where the key action triggers.
 	 * @param	{number} key The key code of the key pressed.
 	 * @param	{Object} event The accordion keydown event.
-	 * @returns {null}
 	 */
 	accessKeyBindings( accordionLinks, selectedElement, key, event ) {
 
