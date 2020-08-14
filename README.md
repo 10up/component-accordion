@@ -23,6 +23,8 @@ The styles can be imported into your existing codebase by using PostCSS imports,
 
 Create a new instance by supplying the selector to use for the accordion and an object containing any necessary callback functions.
 
+Callback functions can pass an object as the first argument that contains the accordion header, link, and content.
+
 ```javascript
 import Accordion from '@10up/component-accordion';
 
@@ -30,13 +32,13 @@ new Accordion( '.accordion', {
 	onCreate: function() {
 		console.log( 'onCreate callback' );
 	},
-	onOpen: function() {
+	onOpen: function( accordionObject ) {
 		console.log( 'onOpen callback' );
 	},
-	onClose: function() {
+	onClose: function( accordionObject ) {
 		console.log( 'onClose callback' );
 	},
-	onToggle: function() {
+	onToggle: function( accordionObject ) {
 		console.log( 'onToggle callback' );
 	}
 } );
