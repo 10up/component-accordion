@@ -1,5 +1,7 @@
 # 10up Accordion component
 
+**DEPRECATED.** Please go to https://github.com/10up/component-library
+
 [![Support Level](https://img.shields.io/badge/support-active-green.svg)](#support-level) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![Build Status][cli-img]][cli-url]
 
 [cli-img]: https://github.com/10up/component-accordion/workflows/Automated%20Tests/badge.svg
