@@ -87,14 +87,14 @@
 				onCreate: function() {
 					console.log( 'onCreated' )
 				},
-				onOpen: function() {
-					console.log( 'onOpen' )
+				onOpen: function( accordion ) {
+					console.log( 'onOpen', accordion )
 				},
-				onClose: function() {
-					console.log( 'onClose' )
+				onClose: function( accordion ) {
+					console.log( 'onClose', accordion )
 				},
-				onToggle: function() {
-					console.log( 'onToggle' )
+				onToggle: function( accordion ) {
+					console.log( 'onToggle', accordion )
 				}
 			} );
 		</script>
